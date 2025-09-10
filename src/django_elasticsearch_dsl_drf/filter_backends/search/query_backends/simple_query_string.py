@@ -1,6 +1,6 @@
 import copy
 
-from elasticsearch_dsl.query import Q
+from opensearchpy import Q
 
 from .base import BaseSearchQueryBackend
 

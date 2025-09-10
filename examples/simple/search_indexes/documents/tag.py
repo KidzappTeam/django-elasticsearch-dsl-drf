@@ -1,5 +1,6 @@
 from django.conf import settings
-from django_elasticsearch_dsl import Document, Index, fields
+from django_opensearch_dsl import Document, fields
+from django_opensearch_dsl.indices import Index
 
 from books.models import Tag
 from .analyzers import html_strip

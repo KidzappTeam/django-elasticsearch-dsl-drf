@@ -4,8 +4,8 @@ Faceted search backend.
 import copy
 from collections import defaultdict
 
-from elasticsearch_dsl import TermsFacet
-from elasticsearch_dsl.query import Q
+from opensearchpy import TermsFacet
+from opensearchpy import Q
 
 from rest_framework.filters import BaseFilterBackend
 
@@ -28,7 +28,7 @@ class FacetedSearchFilterBackend(BaseFilterBackend):
         >>> from django_elasticsearch_dsl_drf.filter_backends import (
         >>>     FacetedSearchFilterBackend
         >>> )
-        >>> from elasticsearch_dsl import TermsFacet, DateHistogramFacet
+        >>> from elasticsearch.dsl import TermsFacet, DateHistogramFacet
         >>> from django_elasticsearch_dsl_drf.viewsets import (
         >>>     BaseDocumentViewSet,
         >>> )
