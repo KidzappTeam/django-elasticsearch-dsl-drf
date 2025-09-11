@@ -5,8 +5,6 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
-from nine import versions
-
 from books import urls as books_urls
 from search_indexes import urls as search_index_urls
 
@@ -15,18 +13,8 @@ __all__ = ('urlpatterns',)
 admin.autodiscover()
 
 urlpatterns = []
-urlpatterns_args = []
-
-if versions.DJANGO_GTE_2_0:
-    urlpatterns_args += [
-        url(r'^admin/', admin.site.urls),
-    ]
-else:
-    urlpatterns_args += [
-        url(r'^admin/', include(admin.site.urls)),
-    ]
-
-urlpatterns_args += [
+urlpatterns_args = [
+    url(r'^admin/', admin.site.urls),
     # Books URLs
     url(r'^books/', include(books_urls)),
 

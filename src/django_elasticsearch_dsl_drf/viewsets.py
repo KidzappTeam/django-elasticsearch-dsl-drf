@@ -21,7 +21,6 @@ from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from .pagination import PageNumberPagination
 from .utils import DictionaryProxy
-from .versions import ELASTICSEARCH_GTE_7_0
 
 __title__ = 'django_elasticsearch_dsl_drf.viewsets'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -246,17 +245,11 @@ class BaseDocumentViewSet(ReadOnlyModelViewSet):
 
                 # Remark 2: Unlike code in `Remark 1`, here we do need the
                 # conditional treatment.
-                if ELASTICSEARCH_GTE_7_0:
-                    dictionary_proxy = self.dictionary_proxy(
-                        obj.to_dict(),
-                        getattr(obj, 'meta', None)
-                    )
-                else:
-                    dictionary_proxy = self.dictionary_proxy(
-                        obj,
-                        getattr(obj, 'meta', None)
-                    )
-
+                dictionary_proxy = self.dictionary_proxy(
+                    obj.to_dict(),
+                    getattr(obj, 'meta', None)
+                )
+              
                 return dictionary_proxy
 
             elif count > 1:

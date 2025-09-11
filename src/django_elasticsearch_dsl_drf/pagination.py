@@ -17,8 +17,6 @@ from rest_framework.response import Response
 
 import six
 
-from .versions import ELASTICSEARCH_GTE_6_0
-
 __title__ = 'django_elasticsearch_dsl_drf.pagination'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2017-2020 Artur Barseghyan'
@@ -163,9 +161,7 @@ class PageNumberPagination(pagination.PageNumberPagination, GetCountMixin):
         # saves us unnecessary queries.
         is_suggest = getattr(queryset, '_suggest', False)
         if is_suggest:
-            if ELASTICSEARCH_GTE_6_0:
-                return queryset.execute().to_dict().get('suggest')
-            return queryset.execute_suggest().to_dict()
+            return queryset.execute().to_dict().get('suggest')
 
         # Check if we're using paginate queryset from `functional_suggest`
         # backend.
@@ -272,9 +268,7 @@ class QueryFriendlyPageNumberPagination(PageNumberPagination):
         # saves us unnecessary queries.
         is_suggest = getattr(queryset, '_suggest', False)
         if is_suggest:
-            if ELASTICSEARCH_GTE_6_0:
-                return queryset.execute().to_dict().get('suggest')
-            return queryset.execute_suggest().to_dict()
+            return queryset.execute().to_dict().get('suggest')
 
         # Check if we're using paginate queryset from `functional_suggest`
         # backend.
@@ -351,9 +345,7 @@ class LimitOffsetPagination(pagination.LimitOffsetPagination, GetCountMixin):
         # saves us unnecessary queries.
         is_suggest = getattr(queryset, '_suggest', False)
         if is_suggest:
-            if ELASTICSEARCH_GTE_6_0:
-                return queryset.execute().to_dict().get('suggest')
-            return queryset.execute_suggest().to_dict()
+            return queryset.execute().to_dict().get('suggest')
 
         # Check if we're using paginate queryset from `functional_suggest`
         # backend.

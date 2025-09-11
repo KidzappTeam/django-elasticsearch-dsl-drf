@@ -4,7 +4,6 @@ from django_opensearch_dsl import Document, fields
 from django_opensearch_dsl.indices import Index
 from django_elasticsearch_dsl_drf.compat import KeywordField, StringField
 from django_elasticsearch_dsl_drf.analyzers import edge_ngram_completion
-from django_elasticsearch_dsl_drf.versions import ELASTICSEARCH_GTE_5_0
 
 from books.models import Book
 
@@ -48,30 +47,29 @@ class BookDocument(Document):
         'mlt': StringField(analyzer='english'),
     }
 
-    if ELASTICSEARCH_GTE_5_0:
-        __title_fields.update(
-            {
-                'suggest_context': fields.CompletionField(
-                    contexts=[
-                        {
-                            "name": "tag",
-                            "type": "category",
-                            "path": "tags.raw",
-                        },
-                        {
-                            "name": "state",
-                            "type": "category",
-                            "path": "state.raw",
-                        },
-                        {
-                            "name": "publisher",
-                            "type": "category",
-                            "path": "publisher.raw",
-                        },
-                    ]
-                ),
-            }
-        )
+    __title_fields.update(
+        {
+            'suggest_context': fields.CompletionField(
+                contexts=[
+                    {
+                        "name": "tag",
+                        "type": "category",
+                        "path": "tags.raw",
+                    },
+                    {
+                        "name": "state",
+                        "type": "category",
+                        "path": "state.raw",
+                    },
+                    {
+                        "name": "publisher",
+                        "type": "category",
+                        "path": "publisher.raw",
+                    },
+                ]
+            ),
+        }
+    )
 
     title = StringField(
         analyzer=html_strip,

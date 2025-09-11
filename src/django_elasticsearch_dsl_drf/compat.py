@@ -7,8 +7,6 @@ Elastic 5.x as soon as possible.
 
 from django_opensearch_dsl import fields
 
-# For compatibility reasons
-from .versions import get_elasticsearch_version
 
 try:
     import coreapi
@@ -76,9 +74,6 @@ def nested_sort_entry(path, split_path=True):
     :return: Dictionary of full nested path
     :rtype: dict
     """
-    version = get_elasticsearch_version()
-    if version[0] < 6 or (version[0] == 6 and version[1] < 1):
-        return {'nested_path': path}
     nested_path = {}
     path_list = path.split('.') if split_path else [path]
     for _ in reversed(path_list):
