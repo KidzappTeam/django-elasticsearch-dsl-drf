@@ -135,7 +135,7 @@ Installation
             'rest_framework',
 
             # Django Elasticsearch integration
-            'django_elasticsearch_dsl',
+            'django_opensearch_dsl',
 
             # Django REST framework Elasticsearch integration (this package)
             'django_elasticsearch_dsl_drf',
