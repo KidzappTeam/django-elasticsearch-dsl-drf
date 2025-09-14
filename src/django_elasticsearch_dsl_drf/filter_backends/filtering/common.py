@@ -2,14 +2,13 @@
 Common filtering backend.
 """
 
+from functools import reduce
 import operator
 
 from opensearchpy import Q
 from rest_framework.filters import BaseFilterBackend
 from django_opensearch_dsl import fields
 
-import six
-from six import string_types
 
 from ...constants import (
     TRUE_VALUES,
@@ -100,7 +99,7 @@ class FilteringFilterBackend(BaseFilterBackend, FilterBackendMixin):
         filter_fields = view.filter_fields
 
         for field, options in filter_fields.items():
-            if options is None or isinstance(options, string_types):
+            if options is None or isinstance(options, str):
                 filter_fields[field] = {
                     'field': options or field
                 }
@@ -506,7 +505,7 @@ class FilteringFilterBackend(BaseFilterBackend, FilterBackendMixin):
             queryset = cls.apply_query(
                 queryset=queryset,
                 options=options,
-                args=[six.moves.reduce(operator.or_, __queries)]
+                args=[reduce(operator.or_, __queries)]
             )
 
         return queryset
@@ -706,7 +705,7 @@ class FilteringFilterBackend(BaseFilterBackend, FilterBackendMixin):
             queryset = cls.apply_query(
                 queryset=queryset,
                 options=options,
-                args=[six.moves.reduce(operator.or_, __queries)]
+                args=[reduce(operator.or_, __queries)]
             )
 
         return queryset

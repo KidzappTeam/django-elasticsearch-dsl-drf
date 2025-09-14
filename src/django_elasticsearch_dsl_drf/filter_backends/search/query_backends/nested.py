@@ -1,5 +1,5 @@
+from functools import reduce
 import operator
-import six
 
 from opensearchpy import Q
 
@@ -99,7 +99,7 @@ class NestedQueryBackend(BaseSearchQueryBackend):
                         Q(
                             cls.query_type,
                             path=path,
-                            query=six.moves.reduce(operator.or_, queries)
+                            query=reduce(operator.or_, queries)
                         )
                     )
             else:
@@ -134,7 +134,7 @@ class NestedQueryBackend(BaseSearchQueryBackend):
                         Q(
                             cls.query_type,
                             path=path,
-                            query=six.moves.reduce(operator.or_, queries)
+                            query=reduce(operator.or_, queries)
                         )
                     )
 

@@ -9,8 +9,6 @@ from opensearchpy import Q
 
 from rest_framework.filters import BaseFilterBackend
 
-from six import string_types, iteritems
-
 __title__ = 'django_elasticsearch_dsl_drf.faceted_search'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2017-2020 Artur Barseghyan'
@@ -104,7 +102,7 @@ class FacetedSearchFilterBackend(BaseFilterBackend):
         faceted_search_fields = copy.deepcopy(view.faceted_search_fields)
 
         for field, options in faceted_search_fields.items():
-            if options is None or isinstance(options, string_types):
+            if options is None or isinstance(options, str):
                 faceted_search_fields[field] = {
                     'field': options or field
                 }
@@ -196,7 +194,7 @@ class FacetedSearchFilterBackend(BaseFilterBackend):
         :return:
         """
         __facets = self.construct_facets(request, view)
-        for __field, __facet in iteritems(__facets):
+        for __field, __facet in __facets.items():
             agg = __facet['facet'].get_aggregation()
             agg_filter = Q('match_all')
 

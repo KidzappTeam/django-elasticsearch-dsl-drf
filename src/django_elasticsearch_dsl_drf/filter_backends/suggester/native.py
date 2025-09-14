@@ -78,8 +78,6 @@ from django_elasticsearch_dsl_drf.constants import (
 
 from rest_framework.filters import BaseFilterBackend
 
-from six import string_types
-
 from ..mixins import FilterBackendMixin
 
 __title__ = 'django_elasticsearch_dsl_drf.filter_backends.suggester'
@@ -166,7 +164,7 @@ class SuggesterFilterBackend(BaseFilterBackend, FilterBackendMixin):
         filter_fields = view.suggester_fields
 
         for field, options in filter_fields.items():
-            if options is None or isinstance(options, string_types):
+            if options is None or isinstance(options, str):
                 filter_fields[field] = {
                     'field': options or field
                 }

@@ -3,7 +3,7 @@
 Serializers.
 """
 
-from __future__ import absolute_import, unicode_literals
+
 
 import copy
 from collections import OrderedDict
@@ -15,8 +15,6 @@ from django_opensearch_dsl import Document, fields
 from rest_framework import serializers
 from rest_framework.fields import empty
 from rest_framework.utils.field_mapping import get_field_kwargs
-
-import six
 
 
 from .fields import (
@@ -102,7 +100,7 @@ class DocumentSerializerMeta(serializers.SerializerMetaclass):
 
 
 class DocumentSerializer(
-    six.with_metaclass(DocumentSerializerMeta, serializers.Serializer)
+    serializers.Serializer, metaclass=DocumentSerializerMeta
 ):
     """A dynamic DocumentSerializer class."""
 
@@ -202,7 +200,7 @@ class DocumentSerializer(
         if __fields == "__all__":
             __fields = ()
 
-        for field_name, field_type in six.iteritems(document_fields):
+        for field_name, field_type in document_fields.items():
             orig_name = field_name[:]
 
             # Don't use this field if it is in `ignore_fields`
