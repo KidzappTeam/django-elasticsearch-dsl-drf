@@ -2,8 +2,6 @@
 Ordering backend.
 """
 
-from six import string_types
-
 from rest_framework.filters import BaseFilterBackend
 from rest_framework.settings import api_settings
 
@@ -33,7 +31,7 @@ class OrderingMixin(object):
         """
         ordering_fields = view.ordering_fields.copy()
         for field, options in ordering_fields.items():
-            if options is None or isinstance(options, string_types):
+            if options is None or isinstance(options, str):
                 ordering_fields[field] = {
                     'field': options or field
                 }
@@ -151,7 +149,7 @@ class OrderingFilterBackend(BaseFilterBackend, OrderingMixin):
     #     :rtype: list
     #     """
     #     ordering = getattr(view, 'ordering', None)
-    #     if isinstance(ordering, string_types):
+    #     if isinstance(ordering, str):
     #         return [ordering]
     #     return ordering
 
@@ -280,7 +278,7 @@ class DefaultOrderingFilterBackend(BaseFilterBackend, OrderingMixin):
         :rtype: list
         """
         ordering = getattr(view, 'ordering', None)
-        if isinstance(ordering, string_types):
+        if isinstance(ordering, str):
             ordering = [ordering]
         # For backwards compatibility require
         # default ordering to be keys in ordering_fields not field value

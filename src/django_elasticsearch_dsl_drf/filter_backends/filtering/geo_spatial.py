@@ -25,8 +25,6 @@ import logging
 from opensearchpy import Q
 from rest_framework.filters import BaseFilterBackend
 
-from six import string_types
-
 from ...constants import (
     ALL_GEO_SPATIAL_LOOKUP_FILTERS_AND_QUERIES,
     LOOKUP_FILTER_GEO_DISTANCE,
@@ -97,7 +95,7 @@ class GeoSpatialFilteringFilterBackend(BaseFilterBackend, FilterBackendMixin):
         filter_fields = view.geo_spatial_filter_fields
 
         for field, options in filter_fields.items():
-            if options is None or isinstance(options, string_types):
+            if options is None or isinstance(options, str):
                 filter_fields[field] = {
                     'field': options or field
                 }

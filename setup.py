@@ -156,7 +156,6 @@ except:
     readme = ''
 
 install_requires = [
-    'six>=1.9',
     'django-opensearch-dsl==0.7.0',
     'djangorestframework',
 ]
@@ -208,7 +207,7 @@ setup(
     package_dir={'': 'src'},
     packages=find_packages(where='./src'),
     license='GPL-2.0-only OR LGPL-2.1-or-later',
-    python_requires=">=2.7",
+    python_requires=">=3.9",
     install_requires=(install_requires + extras_require),
     tests_require=tests_require,
     include_package_data=True,

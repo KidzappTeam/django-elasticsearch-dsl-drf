@@ -4,8 +4,6 @@ The ``post_filter`` filtering backend.
 
 from django_opensearch_dsl import fields
 
-from six import string_types
-
 from ...compat import coreapi
 from ...compat import coreschema
 from ...constants import ALL_LOOKUP_FILTERS_AND_QUERIES
@@ -75,7 +73,7 @@ class PostFilterFilteringFilterBackend(FilteringFilterBackend):
         filter_fields = view.post_filter_fields
 
         for field, options in filter_fields.items():
-            if options is None or isinstance(options, string_types):
+            if options is None or isinstance(options, str):
                 filter_fields[field] = {
                     'field': options or field
                 }
